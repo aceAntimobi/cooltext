@@ -23,3 +23,7 @@ python3 -m http.server 8000
 ```
 
 All personalization data (favorites and recent items) is stored in the browser. Clearing site storage will reset those lists.
+
+### GitHub Pages
+
+If you are hosting the project with GitHub Pages configured to serve the `docs/` directory, the published page will load `docs/index.html`, which points to the same assets as the root `index.html`.
