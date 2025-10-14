@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Emoji, Kaomoji & Symbol Aggregator</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -10,9 +10,113 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="styles/main.css" />
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <div class="app-shell">
+      <div class="sidebar-overlay" id="sidebarOverlay" hidden></div>
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <h2 class="sidebar-title">Browse</h2>
+          <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close navigation">
+            ✕
+          </button>
+        </div>
+        <div class="type-tabs" id="typeTabs" role="tablist" aria-label="Item types"></div>
+        <nav aria-label="Categories">
+          <ul class="category-list" id="categoryList"></ul>
+        </nav>
+        <p class="attribution">Favorites and recents are saved in your browser.</p>
+      </aside>
+      <main class="main">
+        <header class="header">
+          <div class="top-bar">
+            <h1 class="app-title">Emoji, Kaomoji &amp; Symbol Aggregator</h1>
+            <button type="button" class="menu-button" id="menuButton">
+              ☰ Menu
+            </button>
+          </div>
+          <p class="tagline">
+            A unified, mobile-friendly picker to browse, search, favorite, and copy the characters you use most.
+          </p>
+          <div class="search-bar" role="search">
+            <span class="search-icon" aria-hidden="true">🔍</span>
+            <input
+              id="searchInput"
+              type="search"
+              placeholder="Search for smile, heart, arrow, (╯°□°）╯︵ ┻━┻ ..."
+              aria-label="Search across all items"
+              autocomplete="off"
+            />
+          </div>
+        </header>
+
+        <section class="section" id="favoritesSection" aria-label="Favorites" hidden>
+          <div class="section-header">
+            <h2 class="section-title">Favorites</h2>
+            <button type="button" class="ghost-button" id="clearFavorites">Clear</button>
+          </div>
+          <div class="inline-list" id="favoritesList" role="list"></div>
+        </section>
+
+        <section class="section" id="recentsSection" aria-label="Recently used" hidden>
+          <div class="section-header">
+            <h2 class="section-title">Recently Used</h2>
+            <button type="button" class="ghost-button" id="clearRecents">Clear</button>
+          </div>
+          <div class="inline-list" id="recentsList" role="list"></div>
+        </section>
+
+        <section class="section" aria-label="Results">
+          <div class="section-header">
+            <h2 class="section-title" id="resultsTitle">Emoji Library</h2>
+            <span id="resultsCount">0 items</span>
+          </div>
+          <div class="empty-state" id="emptyState" hidden>
+            No matches yet. Try another keyword or choose a different category.
+          </div>
+          <div class="item-grid" id="resultsGrid" role="list"></div>
+        </section>
+      </main>
+    </div>
+
+    <div class="modal" id="detailModal" role="dialog" aria-modal="true" hidden>
+      <div class="modal-content" role="document">
+        <button type="button" class="modal-close" id="modalClose" aria-label="Close details">
+          ✕
+        </button>
+        <div class="modal-character" id="modalCharacter" aria-hidden="true"></div>
+        <div class="modal-body">
+          <h2 class="modal-title" id="modalName"></h2>
+          <p class="modal-description" id="modalDescription"></p>
+          <dl class="modal-meta">
+            <div>
+              <dt>Type</dt>
+              <dd id="modalType"></dd>
+            </div>
+            <div>
+              <dt>Category</dt>
+              <dd id="modalCategory"></dd>
+            </div>
+            <div>
+              <dt>Keywords</dt>
+              <dd id="modalKeywords"></dd>
+            </div>
+            <div id="modalVariantsRow" hidden>
+              <dt>Variants</dt>
+              <dd id="modalVariants"></dd>
+            </div>
+          </dl>
+          <div class="modal-actions">
+            <button type="button" class="primary" id="modalCopyButton">Copy</button>
+            <button type="button" id="modalFavoriteButton">Add to favorites</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+    <script type="module" src="scripts/app.js"></script>
   </body>
 </html>

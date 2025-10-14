@@ -1,23 +1,10 @@
-export type ItemType = 'emoji' | 'kaomoji' | 'symbol';
-
-export interface Item {
-  id: string;
-  character: string;
-  name: string;
-  type: ItemType;
-  category: string;
-  keywords: string[];
-  description?: string;
-  variants?: string[];
-}
-
-export const typeLabels: Record<ItemType, string> = {
+export const typeLabels = {
   emoji: 'Emoji',
   kaomoji: 'Kaomoji',
   symbol: 'Symbols'
 };
 
-export const categories: Record<ItemType, { id: string; label: string }[]> = {
+export const categories = {
   emoji: [
     { id: 'all', label: 'All emoji' },
     { id: 'smileys-emotion', label: 'Smileys & Emotion' },
@@ -50,7 +37,7 @@ export const categories: Record<ItemType, { id: string; label: string }[]> = {
   ]
 };
 
-export const library: Item[] = [
+export const library = [
   {
     id: 'emoji-grinning-face',
     character: '😀',
@@ -539,6 +526,3 @@ export const library: Item[] = [
   }
 ];
 
-export function findItemById(id: string) {
-  return library.find((item) => item.id === id);
-}
